@@ -29,17 +29,14 @@ The Password Keeper Service will store all password records in a local SQLite da
 
 #### Security
 
-The Password Keeper Service will use strong cryptographic algorithms to encrypt and decrypt passwords in the database. The application will use the Argon2 password hashing function to derive a cryptographic key from the user's master password. The application will use the ChaCha20-Poly1305 authenticated encryption algorithm to encrypt and decrypt passwords in the database.
+TRustyPasswd will use strong cryptographic algorithms to encrypt and decrypt passwords in the database. The application will use the Argon2 password hashing function to derive a cryptographic key from the user's master password. The application will use the ChaCha20-Poly1305 authenticated encryption algorithm to encrypt and decrypt passwords in the database.
 ### Non-Functional Requirements
 #### Performance
 
 TRustyPasswd should be able to handle a large number of password records efficiently. The application should be able to add, retrieve, update, delete, and list password records.
-#### Security(Will be soon)
-
-The Password Keeper Service should be designed with security in mind. The application should follow secure coding practices to prevent common security vulnerabilities such as SQL injection, buffer overflow, and race conditions. The application should be thoroughly tested for security vulnerabilities.
 ### Architecture
 
-The Password Keeper Service will consist of the following components:
+TRustyPasswd will consist of the following components:
 
     Command-line interface (CLI) module
     Database module
