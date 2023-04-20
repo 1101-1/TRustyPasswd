@@ -54,6 +54,7 @@ pub fn create_note(
 }
 
 pub fn delete_note(name: String) -> Result<(), Box<dyn Error>> {
+    
     Ok(())
 }
 
