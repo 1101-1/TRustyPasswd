@@ -38,9 +38,9 @@ fn main() -> Result<(), Box<dyn Error>> {
             }
         },
         "delete" => match args.get(2) {
-            Some(name) => return connection_to_db::delete_note(name.to_string()),
+            Some(id) => return connection_to_db::delete_note(id.to_string()),
             None => {
-                println!("Usage: cargo run -- delete <username/url> <passwd>");
+                println!("Usage: cargo run -- delete <id/username>");
                 return Err("Empty name to delete".into());
             }
         },
