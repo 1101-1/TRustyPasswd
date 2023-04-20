@@ -9,8 +9,10 @@ The TrustyPasswd is a software application designed to securely store services, 
 
 TRustyPasswd will be a command-line interface (CLI) application. It will provide the following functionalities to the user:
 
+##### ! At first, u need to write in Linux terminal `cargo build`
+
 ```rust
-./trusty_passwd -a(--arg) <add/show/delete> -n(--name) <username> -s(--service) <service> <password> <url>
+./target/debug/trusty_passwd -a(--arg) <add/show/delete> -n(--name) <username> -s(--service) <service> <password> <url>
 
 ```
 
