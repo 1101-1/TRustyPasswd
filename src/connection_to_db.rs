@@ -1,19 +1,23 @@
-use std::{error::Error};
+use std::error::Error;
 
-use rusqlite::{Connection, named_params};
+use rusqlite::{named_params, Connection};
 
 #[derive(Debug)]
 struct Notes {
     name: String,
     passwd: String,
-    url: String
+    url: String,
 }
 
 fn connection_db() -> Result<Connection, rusqlite::Error> {
     Connection::open("./db/data.db")
 }
 
-pub fn create_note(name: String, passwd: String, url: Option<String>) -> Result<(), Box<dyn Error>> {
+pub fn create_note(
+    name: String,
+    passwd: String,
+    url: Option<String>,
+) -> Result<(), Box<dyn Error>> {
     let conn = connection_db()?;
 
     conn.execute(
@@ -30,15 +34,22 @@ pub fn create_note(name: String, passwd: String, url: Option<String>) -> Result<
     } else {
         "None".to_string()
     };
-    
-    let data: Notes = Notes { name: name.clone(), passwd: passwd.clone(), url: url.clone() };
+
+    let data: Notes = Notes {
+        name: name.clone(),
+        passwd: passwd.clone(),
+        url: url.clone(),
+    };
 
     conn.execute(
         "INSERT INTO notes (name, passwd, url) VALUES (?1, ?2, ?3)",
         (&data.name, &data.passwd, &data.url),
     )?;
 
-    println!("Inserted: name: {}, password: {}, url: {}", name, passwd, url);
+    println!(
+        "Inserted: username: {}, password: {}, url: {}",
+        name, passwd, url
+    );
     Ok(())
 }
 
@@ -53,7 +64,13 @@ pub fn show_note(name: String) -> Result<(), Box<dyn Error>> {
     let mut rows = stmt.query(named_params! { ":name": name})?;
 
     while let Some(row) = rows.next()? {
-    println!("Founded result by NAME {}: username: {}, password: {}, url {}", name, row.get::<usize, String>(0)?, row.get::<usize, String>(1)?, row.get::<usize, String>(2)?)
+        println!(
+            "Founded result by NAME {}: username: {}, password: {}, url {}",
+            name,
+            row.get::<usize, String>(0)?,
+            row.get::<usize, String>(1)?,
+            row.get::<usize, String>(2)?
+        )
     }
     Ok(())
 }

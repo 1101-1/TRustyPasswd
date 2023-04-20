@@ -15,9 +15,17 @@ fn main() -> Result<(), Box<dyn Error>> {
             Some(name) => match args.get(3) {
                 Some(passwd) => {
                     if let Some(url) = args.get(4) {
-                        return connection_to_db::create_note(name.to_string(), passwd.to_string(), Some(url.to_string()));
+                        return connection_to_db::create_note(
+                            name.to_string(),
+                            passwd.to_string(),
+                            Some(url.to_string()),
+                        );
                     }
-                    return connection_to_db::create_note(name.to_string(), passwd.to_string(), None);
+                    return connection_to_db::create_note(
+                        name.to_string(),
+                        passwd.to_string(),
+                        None,
+                    );
                 }
                 None => {
                     println!("Usage: cargo run -- <add> <username> <passwd> <url>");
@@ -49,5 +57,3 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
     }
 }
-
-
