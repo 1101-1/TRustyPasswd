@@ -1,58 +1,59 @@
-use std::{env, error::Error};
+use clap::Parser;
+use std::error::Error;
 
 mod connection_to_db;
 
+#[derive(Parser)]
+struct Cli {
+    #[arg(short, long)]
+    arg: String,
+    #[arg(short, long)]
+    name: Option<String>,
+    #[arg(short, long)]
+    service: Option<String>,
+    #[arg(long)]
+    id: Option<String>,
+    passwd: Option<String>,
+    url: Option<String>,
+}
 fn main() -> Result<(), Box<dyn Error>> {
-    let args: Vec<String> = env::args().collect();
+    let env_args = Cli::parse();
 
-    if args.len() < 3 {
-        println!("Usage: cargo run -- <add/delete/show> <username> <passwd> <url>");
-        return Ok(());
-    }
+    match env_args.arg.as_str() {
+        "add" => {
+            return connection_to_db::create_note(
+                env_args.name,
+                env_args.service,
+                env_args.passwd,
+                env_args.url,
+            );
+        }
+        "show" => {
+            if let Some(service) = env_args.service {
+                return connection_to_db::show_note(service, "service");
+            }
+            if let Some(name) = env_args.name {
+                return connection_to_db::show_note(name, "name");
+            }
+            return Err("Empty args.".into());
+        }
 
-    match args[1].trim() {
-        "add" => match args.get(2) {
-            Some(name) => match args.get(3) {
-                Some(passwd) => {
-                    if let Some(url) = args.get(4) {
-                        return connection_to_db::create_note(
-                            name.to_string(),
-                            passwd.to_string(),
-                            Some(url.to_string()),
-                        );
-                    }
-                    return connection_to_db::create_note(
-                        name.to_string(),
-                        passwd.to_string(),
-                        None,
-                    );
-                }
-                None => {
-                    println!("Usage: cargo run -- <add> <username> <passwd> <url>");
-                    return Err("Third arg is not found".into());
-                }
-            },
-            None => {
-                println!("Usage: cargo run -- <add> <username> <passwd> <url>");
-                return Err("Second arg is not found".into());
+        "delete" => {
+            if let Some(service) = env_args.service {
+                return connection_to_db::delete_note(service, "service");
             }
-        },
-        "delete" => match args.get(2) {
-            Some(id) => return connection_to_db::delete_note(id.to_string()),
-            None => {
-                println!("Usage: cargo run -- delete <id/username>");
-                return Err("Empty name to delete".into());
+            if let Some(name) = env_args.name {
+                return connection_to_db::delete_note(name, "name");
             }
-        },
-        "show" => match args.get(2) {
-            Some(name) => return connection_to_db::show_note(name.to_string()),
-            None => {
-                println!("Usage: cargo run -- <show> <username/url>");
-                return Err("Empty name to show".into());
+            if let Some(id) = env_args.id {
+                return connection_to_db::delete_note(id, "id");
             }
-        },
+            return Err("Empty args. Use".into());
+        }
         _ => {
-            println!("Usage: cargo run -- <add/delete/show> <username> <passwd> <url>");
+            println!(
+                "Usage: ./trusty_passwd -a <add/delete/show> <username> <service> <passwd> <url>"
+            );
             return Err("Incorrect args to run the programm".into());
         }
     }
