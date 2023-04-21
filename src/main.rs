@@ -37,7 +37,6 @@ fn main() -> Result<(), Box<dyn Error>> {
             }
             return Err("Empty args.".into());
         }
-
         "delete" => {
             if let Some(service) = env_args.service {
                 return connection_to_db::delete_note(service, "service");
