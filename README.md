@@ -29,7 +29,7 @@ TRustyPasswd will store all password records in a local SQLite database. The dat
     <service>: the chosen service
     <url>: URL to the source
 
-#### Security
+#### Security(Soon)
 
 TRustyPasswd will use strong cryptographic algorithms to encrypt and decrypt passwords in the database. The application will use the Argon2 password hashing function to derive a cryptographic key from the user's master password. The application will use the ChaCha20-Poly1305 authenticated encryption algorithm to encrypt and decrypt passwords in the database.
 ### Non-Functional Requirements
@@ -50,7 +50,6 @@ The CLI module will be responsible for handling user input and displaying output
 Database module
 
 The database module will be responsible for handling all interactions with the `SQLite` database. The module will use the Rust `rusqlite` crate to interface with the database. The module will implement functions to add, retrieve, update, delete, and list password records in the database.
-Password encryption module
 
 ### Deployment
 
