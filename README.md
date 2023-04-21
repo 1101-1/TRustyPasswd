@@ -21,7 +21,7 @@ The user will interact with the application by entering the required command-lin
 
 #### Database
 
-The Password Keeper Service will store all password records in a local SQLite database. The database schema will have the following fields:
+TRustyPasswd will store all password records in a local SQLite database. The database schema will have the following fields:
 
     <id>: a unique identifier for the password record
     <username>: the username associated with the password
