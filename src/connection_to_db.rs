@@ -11,7 +11,13 @@ struct Notes {
 }
 
 fn connection_db() -> Result<Connection, rusqlite::Error> {
-    Connection::open("./db/data.db")
+    if cfg!(target_os = "linux") {
+        Connection::open("./db/data.db")
+    } else if cfg!(target_os = "windows") {
+        Connection::open(r".\db\data.db")
+    } else {
+        Connection::open("./db/data.db")
+    }
 }
 
 pub fn create_note(
