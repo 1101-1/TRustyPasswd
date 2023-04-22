@@ -6,8 +6,9 @@ The TrustyPasswd is a software application designed to securely store services, 
 
 ### Functional Requirements
 #### User Interface
-
 TRustyPasswd will be a command-line interface (CLI) application. It will provide the following functionalities to the user:
+
+You can use compiling version [RELEASE](https://github.com/1101-1/TRustyPasswd/releases/tag/1.0.0) or git clone version(for that instruction below).
 
 ##### ! At first, u need to write in Linux terminal `cargo build`
 
@@ -15,7 +16,6 @@ TRustyPasswd will be a command-line interface (CLI) application. It will provide
 ./target/debug/trusty_passwd -a(--arg) <add/show/delete> -n(--name) <username> -s(--service) <service> <password> <url>
 
 ```
-
 
 The user will interact with the application by entering the required command-line arguments and options.
 
