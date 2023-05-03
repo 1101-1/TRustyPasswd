@@ -13,7 +13,9 @@ struct Cli {
     service: Option<String>,
     #[arg(long)]
     id: Option<String>,
+    #[arg(short, long)]
     passwd: Option<String>,
+    #[arg(short, long)]
     url: Option<String>,
 }
 fn main() -> Result<(), Box<dyn Error>> {
@@ -47,11 +49,11 @@ fn main() -> Result<(), Box<dyn Error>> {
             if let Some(id) = env_args.id {
                 return connection_to_db::delete_note(id, "id");
             }
-            return Err("Empty args. Use".into());
+            return Err("Empty args.".into());
         }
         _ => {
             println!(
-                "Usage: ./trusty_passwd -a <add/delete/show> <username> <service> <passwd> <url>"
+                "Usage: ./trusty_passwd -a <add/delete/show> -n <username> -s <service> -p <passwd> -u <url>"
             );
             return Err("Incorrect args to run the programm".into());
         }
