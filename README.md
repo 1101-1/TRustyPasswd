@@ -13,7 +13,9 @@ You can use compiling version [RELEASE](https://github.com/1101-1/TRustyPasswd/r
 ##### ! At first, u need to write in Linux terminal `cargo build`
 
 ```rust
+
 ./target/debug/trusty_passwd -a(--arg) <add/show/delete> -n(--name) <username> -s(--service) <service> -p <password> -u <url>
+
 
 ```
 
@@ -31,7 +33,9 @@ TRustyPasswd will store all password records in a local SQLite database. The dat
 
 #### Security(Soon)
 
+
 TRustyPasswd will use strong cryptographic algorithms to encrypt and decrypt passwords in the database. The application will use the password hashing function to derive a cryptographic key from the user's master password. The application will use authenticated encryption algorithm to encrypt and decrypt passwords in the database.
+
 ### Non-Functional Requirements
 #### Performance
 
