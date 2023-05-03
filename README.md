@@ -13,7 +13,9 @@ You can use compiling version [RELEASE](https://github.com/1101-1/TRustyPasswd/r
 ##### ! At first, u need to write in Linux terminal `cargo build`
 
 ```rust
-./target/debug/trusty_passwd -a(--arg) <add/show/delete> -n(--name) <username> -s(--service) <service> <password> <url>
+
+./target/debug/trusty_passwd -a(--arg) <add/show/delete> -n(--name) <username> -s(--service) <service> -p <password> -u <url>
+
 
 ```
 
@@ -31,7 +33,9 @@ TRustyPasswd will store all password records in a local SQLite database. The dat
 
 #### Security(Soon)
 
-TRustyPasswd will use strong cryptographic algorithms to encrypt and decrypt passwords in the database. The application will use the Argon2 password hashing function to derive a cryptographic key from the user's master password. The application will use the ChaCha20-Poly1305 authenticated encryption algorithm to encrypt and decrypt passwords in the database.
+
+TRustyPasswd will use strong cryptographic algorithms to encrypt and decrypt passwords in the database. The application will use the password hashing function to derive a cryptographic key from the user's master password. The application will use authenticated encryption algorithm to encrypt and decrypt passwords in the database.
+
 ### Non-Functional Requirements
 #### Performance
 
@@ -54,6 +58,8 @@ The database module will be responsible for handling all interactions with the `
 ### Deployment
 
 The application will be distributed in binary form for Linux, Windows, and macOS operating systems.
-### Conclusion
 
-TRustyPasswd is a robust and secure password manager application written in Rust. The application uses strong cryptographic algorithms to protect the user's sensitive information. The application is designed with performance, reliability, and security in mind. The application is a command-line interface that allows the user to manage their passwords efficiently.
+### Additional Arg flags
+
+`-g --generate_password` - generated 11 letters password if -p arg is empty.
+
