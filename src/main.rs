@@ -13,7 +13,9 @@ struct Cli {
     service: Option<String>,
     #[arg(long)]
     id: Option<String>,
+    #[arg(short, long)]
     passwd: Option<String>,
+    #[arg(short, long)]
     url: Option<String>,
 }
 fn main() -> Result<(), Box<dyn Error>> {
