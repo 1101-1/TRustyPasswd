@@ -61,5 +61,6 @@ The application will be distributed in binary form for Linux, Windows, and macOS
 
 ### Additional Arg flags
 
-`-g --generate_password` - generated 11 letters password if -p arg is empty.
-
+`-g --generate_password` - generated 11 letters password if `-p` arg is empty
+`-p --password` - sets password
+`-u --url` - sets url
