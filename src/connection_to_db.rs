@@ -37,35 +37,11 @@ pub fn create_note(
         (),
     )?;
 
-    let name = if let Some(name) = name {
-        name
-    } else {
-        "None".to_string()
-    };
-
-    let service = if let Some(service) = service {
-        service
-    } else {
-        "None".to_string()
-    };
-
-    let passwd = if let Some(passwd) = passwd {
-        passwd
-    } else {
-        "None".to_string()
-    };
-
-    let url = if let Some(url) = url {
-        url
-    } else {
-        "None".to_string()
-    };
-
     let data: Notes = Notes {
-        name: name.clone(),
-        service: service.clone(),
-        passwd: passwd.clone(),
-        url: url.clone(),
+        name: name.unwrap_or("None".to_string()),
+        service: service.unwrap_or("None".to_string()),
+        passwd: passwd.unwrap_or("None".to_string()),
+        url: url.unwrap_or("None".to_string()),
     };
 
     conn.execute(
@@ -75,7 +51,7 @@ pub fn create_note(
 
     println!(
         "Inserted: service: {}, username: {}, password: {}, url: {}",
-        service, name, passwd, url
+        &data.name, &data.service, &data.passwd, &data.url
     );
 
     Ok(())
@@ -90,7 +66,7 @@ pub fn delete_note(name_or_service_or_id: String, prop: &str) -> Result<(), Box<
             let mut stmt = conn.prepare("DELETE FROM notes WHERE id = ?")?;
             match stmt.execute([id]) {
                 Ok(_) => {
-                    println!("Note deleted");
+                    println!("Note of id: {} has been deleted", &id);
                     return Ok(());
                 }
                 Err(_err) => return Err("Id does not exist".into()),

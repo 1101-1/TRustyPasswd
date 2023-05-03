@@ -1,7 +1,8 @@
-use clap::Parser;
+use clap::{Parser, builder::Str};
 use std::error::Error;
 
 mod connection_to_db;
+mod generate_passwd;
 
 #[derive(Parser)]
 struct Cli {
@@ -17,12 +18,17 @@ struct Cli {
     passwd: Option<String>,
     #[arg(short, long)]
     url: Option<String>,
+    #[arg(short, long, default_value = "false")]
+    generate_passwd: String
 }
 fn main() -> Result<(), Box<dyn Error>> {
-    let env_args = Cli::parse();
+    let mut env_args = Cli::parse();
 
     match env_args.arg.as_str() {
         "add" => {
+            if env_args.passwd == None && env_args.generate_passwd == "true" {
+                env_args.passwd = Some(generate_passwd::generate_passwd())
+            }
             return connection_to_db::create_note(
                 env_args.name,
                 env_args.service,
@@ -53,7 +59,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
         _ => {
             println!(
-                "Usage: ./trusty_passwd -a <add/delete/show> -n <username> -s <service> -p <passwd> -u <url>"
+                "Usage: ./trusty_passwd -a <add/delete/show> -n <username> -s <service> -p <passwd> -u <url> -e <false(by default it is true)>"
             );
             return Err("Incorrect args to run the programm".into());
         }
